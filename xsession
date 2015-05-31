@@ -1,10 +1,14 @@
 #!/bin/sh
 
+# Setup keyring
+eval $(gpg-agent --daemon)
+export $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+
 # Setup PATH
 export PATH=$HOME/bin:/sbin:/usr/local/sbin:/usr/sbin:/bin:/usr/local/bin:/usr/bin:/usr/local/games:/usr/games
 
 # Setup locale
-export LANG=fr_FR.utf8
+export LANG=sv_SE.utf8
 export LC_MESSAGES=en_US.utf8
 
 # Ensure we use the appropriate gtkrc-2.0 file
@@ -42,12 +46,16 @@ case "$(hostname)" in
     zoro)
         xrandr --output eDP1 --auto --dpi 144
         ;;
+    luthien)
+        xrandr  --output HDMI3 --auto --right-of LVDS1 --output LVDS1 --auto
+        ;;
 esac
 
 . ~/.config/awesome/bin/xsettingsd-setup
 ~/.config/awesome/bin/xss-lock start &
 inputplug -0 -c ~/.config/awesome/bin/input-event 2> /dev/null
-rfkill block all 2> /dev/null
-redshift -l 6.606:46.525 -t 6500:5500 2> /dev/null &
+#rfkill block all 2> /dev/null
+#redshift -l 6.606:46.525 -t 6500:5500 2> /dev/null &
 
 exec awesome
+#ck-launch-session dbus-launch --sh-syntax --exit-with-session awesome
