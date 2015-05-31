@@ -189,6 +189,22 @@ config.keys.global = awful.util.table.join(
 		end
 	     end,
 	     "Focus previous window"),
+   awful.key({ "Mod1",           }, "Tab",
+	     function ()
+		awful.client.focus.byidx( 1)
+		if client.focus then
+		   client.focus:raise()
+		end
+	     end,
+	     "Focus next window"),
+   awful.key({ "Mod1", "Shift"   }, "Tab",
+	     function ()
+		awful.client.focus.byidx(-1)
+		if client.focus then
+		   client.focus:raise()
+		end
+	     end,
+	     "Focus previous window"),
    awful.key({ modkey,           }, "u", toggle_im,
 	    "Toggle Pidgin conversation window"),
    awful.key({ modkey, "Control" }, "j", function ()
@@ -240,11 +256,14 @@ config.keys.global = awful.util.table.join(
 	     "Spawn a terminal"),
 
    -- Screenshot
-   awful.key({}, "Print", function() screenshot("root") end),
+   awful.key({ modkey,         }, "Print", function() screenshot("root") end),
    awful.key({ modkey, "Shift" }, "Print", screenshot),
 
    -- Restart awesome
    awful.key({ modkey, "Control" }, "r", awesome.restart),
+
+   -- Quit awesome
+   awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
    -- Multimedia keys
    awful.key({ }, "XF86MonBrightnessUp",   brightness.increase),
