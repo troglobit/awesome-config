@@ -88,7 +88,7 @@ cpuicon.image = image(beautiful.icons .. "/widgets/cpu.png")
 
 -- Battery
 local batwidget = { widget = "" }
-if awful.util.table.hasitem({"guybrush", "zoro"}, config.hostname) then
+if awful.util.table.hasitem({"guybrush", "zoro", "luthien"}, config.hostname) then
    local bat = "BAT0"
    if config.hostname == "guybrush" then bat = "BAT1" end
    batwidget.widget = widget({ type = "textbox" })
@@ -279,9 +279,11 @@ for s = 1, screen.count() do
 	   promptbox[s],
 	   layout = awful.widget.layout.horizontal.leftright
 	},
-	on(1, systray),
-	sepclose, datewidget, screen.count() > 1 and dateicon or "", spacer,
-	on(2, volwidget), screen.count() > 1 and on(2, volicon) or "", on(2, spacer),
+
+        -- Read from right to left ...
+	sepclose, datewidget, screen.count() > 1 and dateicon or "", sepopen,
+	on(2, sepclose), on(2, systray), on(2, sepopen),
+	sepclose, on(2, volwidget), screen.count() > 1 and on(2, volicon) or "", on(2, spacer),
 
 	on(2, batwidget.widget),
 	on(2, batwidget.widget ~= "" and baticon or ""),
@@ -297,7 +299,8 @@ for s = 1, screen.count() do
 	on(1, memwidget), on(1, memicon), on(1, spacer),
 	on(1, cpuwidget), on(1, cpuicon), on(1, sepopen),
 	tasklist[s],
-	layout = awful.widget.layout.horizontal.rightleft }
+	layout = awful.widget.layout.horizontal.rightleft
+    }
 end
 
 config.keys.global = awful.util.table.join(
