@@ -54,7 +54,7 @@ load them is to use:
 	local quake = package.loaded["vbe/quake"]
 
 [awesome window manager]: http://awesome.naquadah.org
-[Vincent Bernat's aweseome configuration]: https://github.com/vincentbernat/awesome-configuration
+[Vincent Bernat's configuration]: https://github.com/vincentbernat/awesome-configuration
 
 <!--
   -- Local Variables:
