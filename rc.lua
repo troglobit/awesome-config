@@ -45,8 +45,8 @@ os.execute("test -d " .. awful.util.getdir("cache") ..
 -- Global configuration
 modkey = "Mod4"
 config = {}
-config.terminal = "vbeterm"
-config.termclass = "Vbeterm"
+config.terminal = "x-terminal-emulator"
+config.termclass = "x-terminal-emulator"
 config.layouts = {
    awful.layout.suit.tile,
    awful.layout.suit.tile.left,
@@ -55,7 +55,8 @@ config.layouts = {
    awful.layout.suit.floating,
 }
 config.hostname = awful.util.pread('uname -n'):gsub('\n', '')
-config.browser = "chromium"
+config.browser = "firefox"
+config.mail    = "thunderbird"
 
 -- Remaining modules
 loadrc("xrun")			-- xrun function

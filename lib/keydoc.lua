@@ -117,6 +117,7 @@ function display()
 	 group .. "</span>\n" .. res
    end
    nid = naughty.notify({ text = result,
+                          screen = 1,
 			  replaces_id = nid,
 			  hover_timeout = 0.1,
 			  timeout = 30 }).id
