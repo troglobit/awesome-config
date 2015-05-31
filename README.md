@@ -1,12 +1,11 @@
 The awesome Troglobit configuration
 ===================================
 
-This is a fork of [Vincent Bernat's aweseome configuration] of the
-[awesome window manager].  It has been reworked and generalized to fit
-my own use case more.
+This is my personal reworked and slightly generalized fork of
+[Vincent Bernat's configuration] of the [awesome window manager].
 
-The following is a cut down of Vincent's original comments, rewritten to
-the third person.
+The following is a cut down version of Vincent's original comments,
+rewritten to the third person.
 
 ----
 
