@@ -11,61 +11,125 @@ local tagicon = function(icon)
 end
 
 shifty.config.tags = {
+   irc = {
+      init = true,
+      position = 1,
+      mwfact = 0.2,
+      exclusive = true,
+      screen = 1,
+      icon = tagicon("im"),
+   },
+   dev = {
+      init = true,
+      position = 2,
+      layout = awful.layout.suit.floating,
+      exclusive = false,
+      screen = screen.count(),
+      -- spawn = "evilvte",
+      icon = tagicon("dev"),
+   },
    www = {
       position = 3,
       mwfact = 0.7,
       exclusive = true,
-      max_clients = 1,
-      screen = math.max(screen.count(), 2),
-      spawn = config.browser,
+      max_clients = 3,
+      screen = screen.count(),
+      -- spawn = config.browser,
       icon = tagicon("web")
    },
-   emacs = {
-      position = 2,
-      mwfact = 0.6,
-      exclusive = true,
-      screen = 1,
-      spawn = "emacs",
-      icon = tagicon("dev"),
-   },
-   xterm = {
-      position = 1,
+   mail = {
+      -- init = true,
+      position = 4,
       layout = awful.layout.suit.fair,
       exclusive = true,
-      slave = true,
+      screen = screen.count(),
+      -- spawn = config.mail,
+      icon = tagicon("web"),
+      -- nopopup = true,           -- don't give focus on creation
+   },
+   xterm = {
+      position = 5,
+      layout = awful.layout.suit.fair,
+      exclusive = true,
+      -- screen = math.max(screen.count(), 2),
       spawn = config.terminal,
       icon = tagicon("main"),
-   },
-   im = {
-      position = 4,
-      mwfact = 0.2,
-      exclusive = true,
-      screen = math.max(screen.count(), 2),
-      icon = tagicon("im"),
       nopopup = true,           -- don't give focus on creation
-   }
+   },
+
+   movies = {
+      position = 8,
+      layout = awful.layout.suit.fair,
+      screen = 1,
+      icon = tagicon("main"),
+      screen = screen.count(),
+   },
+
+   music = {
+      -- init = true,
+      position = 9,
+      layout = awful.layout.suit.fair,
+      exclusive = true,
+      screen = 1,
+      icon = tagicon("main"),
+      -- spawn = "spotify",
+      -- nopopup = true,           -- don't give focus on creation
+   },
 }
 
 -- Also, see rules.lua
 shifty.config.apps = {
    {
-      match = { role = { "browser" } },
+      match = { role = { "browser" }, },
       tag = "www",
    },
    {
-      match = { "emacs" },
-      tag = "emacs",
+      match = { "emacs", },
+      tag = "dev",
+      float = true
    },
    {
-      match = { class = { "Skype", "Pidgin" } },
-      tag = "im",
+      match = { "spotify" },
+      tag = "music",
    },
+
    {
-      match = { config.termclass },
-      startup = {
-         tag = "xterm"
+      match = {
+         "/home/jocke/Troglobit",
+         "/home/jocke/Westermo"
       },
-      intrusive = true,         -- Display even on exclusive tags
+      tag = "dev",
+      float = true
+   },
+
+   {
+      match = {
+         "byobu",
+         "jocke@irc",
+         "x-terminal-emulator"
+      },
+      tag = "irc",
+      startup = {
+         tag = "irc",
+      },
+      float = true
+   },
+
+   {
+      match = {
+         "Thunderbird",
+         "Mail",
+      },
+      tag = "mail",
+      float = true
+   },
+   {
+      match = {
+         "Transmission",
+         "vlc"
+      },
+      tag = "movies",
+      float = true,
    },
    {
       match = { class = { "Key[-]mon" },
