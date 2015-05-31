@@ -36,6 +36,9 @@ case "$use,$(uname -n),$name" in
     XISlaveKeyboard,*)
         xkb default
         ;;
+    XISlaveKeyboard,*,"Logitech HID compliant keyboard")
+        xkb default
+        ;;
     XISlavePointer,*,"Microsoft Microsoft 3-Button Mouse with IntelliEye(TM)")
         xinput set-ptr-feedback $device 3 3 1
         ;;
@@ -67,7 +70,7 @@ case "$use,$(uname -n),$name" in
     XISlavePointer,zoro,"ELAN Touchscreen")
         xinput disable $device
         ;;
-    XISlavePointer,guybrush,"SynPS/2 Synaptics TouchPad")
+    XISlavePointer,*,"SynPS/2 Synaptics TouchPad")
         xinput set-prop $device 'Synaptics Off' 1
         ;;
 esac
