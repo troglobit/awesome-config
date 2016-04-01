@@ -46,9 +46,12 @@ beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator -m"
+browser  = "x-www-browser"
+email    = "thunderbird"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 irc_cmd =  terminal .. " -c irc -e ssh troglobit.com"
+emacs_cmd = "emacs -mm --no-splash -bw 0"
 -- When screens have been set up, we figure out where to place
 -- IRC and Spotify
 other_screen = math.max(screen.count(), 1)
@@ -108,6 +111,9 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal },
                                     { "iRC", irc_cmd },
+                                    { "Emacs", emacs_cmd },
+                                    { "Firefox", browser },
+                                    { "Thunderbird", email },
                                   }
                         })
 
@@ -274,6 +280,10 @@ globalkeys = awful.util.table.join(
 
     -- Shortcuts for commonly used tools and programs
     awful.key({ modkey,           }, "F1",    function () awful.util.spawn(irc_cmd) end),
+    awful.key({ modkey,           }, "F2",    function () awful.util.spawn(emacs_cmd) end),
+    awful.key({ modkey,           }, "F3",    function () awful.util.spawn(browser) end),
+    awful.key({ modkey,           }, "F4",    function () awful.util.spawn(email) end),
+
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
@@ -395,6 +405,15 @@ awful.rules.rules = {
       properties = { tag = tags[other_screen][1], switchtotag = true,
 		     maximized_vertical = true, maximized_horizontal = true,
 		     floating = true,
+    } },
+    { rule = { class = "Emacs" },
+      properties = { tag = tags[1][2], switchtotag = true,
+    } },
+    { rule = { class = "Firefox" },
+      properties = { tag = tags[1][1], switchtotag = true, floating = true,
+    } },
+    { rule = { class = "Thunderbird" },
+      properties = { tag = tags[1][1], switchtotag = true,
     } },
 }
 -- }}}
