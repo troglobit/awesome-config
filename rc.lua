@@ -52,6 +52,11 @@ editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 irc_cmd =  terminal .. " -c irc -e ssh troglobit.com"
 emacs_cmd = "emacs -mm --no-splash -bw 0"
+plug = "~/.config/awesome/xplugd.script"
+
+-- Initialize screen(s)
+randr.init(plug)
+
 -- When screens have been set up, we figure out where to place
 -- IRC and Spotify
 other_screen = math.max(screen.count(), 1)
@@ -511,6 +516,9 @@ end
 -- Connect to the GNOME settings daemon, still needed for some stuff
 -- run_once("gnome-settings-daemon")
 
+-- Neat dock/undock daemon
+run_once("xplugd " .. plug)
+
 -- Semi-automatic docking helper
 -- run_once("inputplug -0 -c pluggy.sh 2>/dev/null")
 
@@ -521,3 +529,4 @@ run_once("nm-applet")
 -- Use Ctrl-P to set this in preferences instead:
 --   --ui.track_notifications_enabled=false
 run_once("spotify")
+-- }}}
