@@ -415,6 +415,10 @@ awful.rules.rules = {
     { rule = { class = "Thunderbird" },
       properties = { tag = tags[1][1], switchtotag = true,
     } },
+    { rule = { instance = "spotify" },
+      properties = { tag = tags[other_screen][9], floating = true,
+		     maximized_vertical = true, maximized_horizontal = true,
+    } },
 }
 -- }}}
 
@@ -493,3 +497,27 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- {{{ Autostart apps
+function run_once(cmd)
+   findme = cmd
+   firstspace = cmd:find(" ")
+   if firstspace then
+      findme = cmd:sub(0, firstspace-1)
+   end
+   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+end
+
+-- Connect to the GNOME settings daemon, still needed for some stuff
+-- run_once("gnome-settings-daemon")
+
+-- Semi-automatic docking helper
+-- run_once("inputplug -0 -c pluggy.sh 2>/dev/null")
+
+-- Network status in tray
+run_once("nm-applet")
+
+-- Music is Life!
+-- Use Ctrl-P to set this in preferences instead:
+--   --ui.track_notifications_enabled=false
+run_once("spotify")
