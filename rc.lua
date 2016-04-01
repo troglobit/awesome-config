@@ -48,6 +48,10 @@ beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 terminal = "x-terminal-emulator -m"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
+irc_cmd =  terminal .. " -c irc -e ssh troglobit.com"
+-- When screens have been set up, we figure out where to place
+-- IRC and Spotify
+other_screen = math.max(screen.count(), 1)
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -102,7 +106,8 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian", debian.menu.Debian_menu.Debian },
-                                    { "open terminal", terminal }
+                                    { "open terminal", terminal },
+                                    { "iRC", irc_cmd },
                                   }
                         })
 
@@ -267,6 +272,8 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
+    -- Shortcuts for commonly used tools and programs
+    awful.key({ modkey,           }, "F1",    function () awful.util.spawn(irc_cmd) end),
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
@@ -384,9 +391,11 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { instance = "irc" },
+      properties = { tag = tags[other_screen][1], switchtotag = true,
+		     maximized_vertical = true, maximized_horizontal = true,
+		     floating = true,
+    } },
 }
 -- }}}
 
