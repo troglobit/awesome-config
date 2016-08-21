@@ -391,6 +391,10 @@ globalkeys = awful.util.table.join(globalkeys,
        awful.key({ }, "XF86AudioStop", function () awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop")end))
 root.keys(globalkeys)
 
+-- Screen saver
+globalkeys = awful.util.table.join(globalkeys, awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("xscreensaver-command -activate", false) end))
+root.keys(globalkeys)
+
 -- ...
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -533,6 +537,10 @@ run_once("xplugd " .. plug)
 
 -- Network status in tray
 run_once("nm-applet")
+
+-- X screen saver, use Pause key to activate
+run_once("xmodmap ~/config/awesome/.Xmodmap")
+run_once("xscreensaver -nosplash")
 
 -- Music is Life!
 -- Use Ctrl-P to set this in preferences instead:
