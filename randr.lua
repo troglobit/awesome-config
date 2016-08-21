@@ -1,5 +1,9 @@
 #!/usr/bin/env lua
 
+function trim(s)
+      return (string.gsub(s, "^%s*(.-)%s*$", "%1"))
+end
+
 randr = {}
 function randr.init(cmd)
    outputs = {}
@@ -14,8 +18,17 @@ function randr.init(cmd)
 
    for i,v in ipairs(outputs) do
       out, stat = unpack(v)
-      --   print(string.format("%s = %s", out, stat))
       os.execute(string.format("%s display %s %s", cmd, out, stat))
    end
+
+   inputs = {}
+   xinput = io.popen("xinput list --short")
+   for line in xinput:lines() do
+      if (line:match(".*slave .*")) then
+	 desc, id, input = line:match(".*↳ (.*)id=([0-9]*).*slave  ([^ ]*).*")
+	 os.execute(string.format("%s %s %s connected %s", cmd, input, id, trim(desc)))
+      end
+   end
+   xinput:close()
 end
 
