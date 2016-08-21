@@ -87,7 +87,7 @@ local layouts =
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    awful.layout.suit.magnifier,
 }
 -- }}}
 
@@ -116,16 +116,22 @@ myawesomemenu = {
    { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
+menu_separator = { "------------", height="1" }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal },
+				    menu_separator,
                                     { "iRC", irc_cmd },
                                     { "Emacs", emacs_cmd },
                                     { "Firefox", browser },
                                     { "Thunderbird", email },
-                                  }
-                        })
+				    menu_separator,
+				    { "Logout",   dialog },
+				    { "Suspend",  dialog },
+                                    { "Restart",  dialog },
+                                    { "Shutdown", dialog },
+			  } })
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
