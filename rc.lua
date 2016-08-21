@@ -48,14 +48,16 @@ end
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator -m"
-browser  = "x-www-browser"
+terminal = "terminator -m"
+browser  = "firefox"
 email    = "thunderbird"
-editor = os.getenv("EDITOR") or "editor"
+plug     = os.getenv("HOME") .. "/.config/awesome/xplugd.script"
+dialog   = os.getenv("HOME") .. "/.config/awesome/ctrl-alt-del.py"
+editor   = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
-irc_cmd =  terminal .. " -c irc -e ssh troglobit.com"
-emacs_cmd = "emacs -mm --no-splash -bw 0"
-plug = "~/.config/awesome/xplugd.script"
+irc_cmd  =  "x-terminal-emulator" .. " -c irc -e ssh -p222 pi.ircbox.org"
+-- emacs_cmd = "emacs -mm --no-splash -bw 0"
+emacs_cmd = "emacs --no-splash"
 
 -- Initialize screen(s)
 randr.init(plug)
@@ -273,8 +275,9 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-
+--    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
+    awful.key({ "Mod1", "Control" }, "Delete", function () awful.util.spawn(dialog) end),
+    awful.key({ modkey, "Shift"   }, "q",     function () awful.util.spawn(dialog) end),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
