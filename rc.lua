@@ -541,6 +541,9 @@ run_once("nm-applet")
 -- Pulseaudio systray applet
 run_once("pasystray")
 
+-- X compositing manager
+run_once("xcompmgr -cfn")
+
 -- X screen saver, use Pause key to activate
 run_once("xmodmap ~/config/awesome/.Xmodmap")
 run_once("xscreensaver -nosplash")
