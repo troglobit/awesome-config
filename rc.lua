@@ -382,9 +382,9 @@ end
 
 -- Mediakeys
 globalkeys = awful.util.table.join(globalkeys,
-           awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse sset Master 5%+", false) end),
-       awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse sset Master 5%-", false) end),
-       awful.key({}, "XF86AudioMute", function() awful.util.spawn('amixer -D pulse sset Master 1+ toggle') end),
+       awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl set-sink-volume 0 +5%") end),
+       awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("pactl set-sink-volume 0 -5%") end),
+       awful.key({}, "XF86AudioMute", function() awful.util.spawn('pactl set-sink-mute 0 toggle') end),
        awful.key({ }, "XF86AudioNext", function () awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")end),
        awful.key({ }, "XF86AudioPrev", function () awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")end),
        awful.key({ }, "XF86AudioPlay", function () awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")end),
@@ -538,6 +538,9 @@ run_once("xplugd " .. plug)
 -- Network status in tray
 run_once("nm-applet")
 
+-- Pulseaudio systray applet
+run_once("pasystray")
+
 -- X screen saver, use Pause key to activate
 run_once("xmodmap ~/config/awesome/.Xmodmap")
 run_once("xscreensaver -nosplash")
@@ -545,5 +548,5 @@ run_once("xscreensaver -nosplash")
 -- Music is Life!
 -- Use Ctrl-P to set this in preferences instead:
 --   --ui.track_notifications_enabled=false
-run_once("spotify")
+--run_once("spotify")
 -- }}}
