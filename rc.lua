@@ -531,9 +531,6 @@ end
 -- Neat dock/undock daemon
 run_once("xplugd " .. plug)
 
--- Semi-automatic docking helper
--- run_once("inputplug -0 -c pluggy.sh 2>/dev/null")
-
 -- Network status in tray
 run_once("nm-applet")
 
