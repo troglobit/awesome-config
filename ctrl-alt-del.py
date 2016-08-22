@@ -15,7 +15,7 @@ if __name__ == "__main__":
     dialog.add_button("Shut Down", 3)
     action = dialog.run()
     if action == 0:
-        os.system("echo 'awesome.quit | awesome-client -'");
+        os.system("echo 'awesome.quit()' | awesome-client -");
     elif action == 1:
         os.system("systemctl suspend");
     elif action == 2:
