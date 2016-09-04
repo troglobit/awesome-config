@@ -11,6 +11,9 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
+-- Alt-Tab Switcher
+local switcher = require("awesome-switcher")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -277,6 +280,16 @@ globalkeys = awful.util.table.join(
                 client.focus:raise()
             end
         end),
+
+    -- Alt-Tab Switcher
+    awful.key({ "Mod1",           }, "Tab",
+       function ()
+	  switcher.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")
+    end),
+    awful.key({ "Mod1", "Shift"   }, "Tab",
+       function ()
+	  switcher.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")
+    end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
