@@ -20,6 +20,9 @@ require("debian.menu")
 -- Load screen manip. library
 require("randr")
 
+-- Load sound manip. library
+require("sound")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -64,6 +67,9 @@ emacs_cmd = "emacs --no-splash"
 
 -- Initialize screen(s)
 randr.init(plug)
+
+-- Initialize sound
+sound.init()
 
 -- When screens have been set up, we figure out where to place
 -- IRC and Spotify
@@ -395,13 +401,13 @@ end
 
 -- Mediakeys
 globalkeys = awful.util.table.join(globalkeys,
-       awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl set-sink-volume 0 +5%") end),
-       awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("pactl set-sink-volume 0 -5%") end),
-       awful.key({}, "XF86AudioMute", function() awful.util.spawn('pactl set-sink-mute 0 toggle') end),
        awful.key({ }, "XF86AudioNext", function () awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")end),
        awful.key({ }, "XF86AudioPrev", function () awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")end),
        awful.key({ }, "XF86AudioPlay", function () awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")end),
        awful.key({ }, "XF86AudioStop", function () awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop")end))
+	awful.key({}, "XF86AudioRaiseVolume", function() sound.incr() end),
+	awful.key({}, "XF86AudioLowerVolume", function() sound.decr() end),
+	awful.key({}, "XF86AudioMute",        function() sound.mute() end),
 root.keys(globalkeys)
 
 -- Screen saver
