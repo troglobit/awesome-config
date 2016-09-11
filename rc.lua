@@ -414,7 +414,8 @@ globalkeys = awful.util.table.join(globalkeys,
 root.keys(globalkeys)
 
 -- Screen saver
-globalkeys = awful.util.table.join(globalkeys, awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("xscreensaver-command -activate", false) end))
+globalkeys = awful.util.table.join(globalkeys,
+	awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("xscreensaver-command -activate", false) end))
 root.keys(globalkeys)
 
 -- ...
