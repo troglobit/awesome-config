@@ -1,22 +1,25 @@
 #!/usr/bin/env lua
-local sink_id = {}
+local sink_id = 0
 
 sound = {}
 function sound.init()
-   fallback = {}
+   fallback = 0
 
    pactl = io.popen("pactl list sinks short")
    for line in pactl:lines() do
       sink, card = line:match("^([0-9]*)[ \t]*([^ \t]*).*")
-      fallback = sink
+
       if card:match(".*DisplayLink.*") then
 	 sink_id = tonumber(sink)
+      end
+      if card:match(".*alsa_output.*") then
+	 fallback = tonumber(sink)
       end
    end
    pactl:close()
 
-   if not sink_id then
-      sink_id = tonumber(fallback)
+   if sink_id == 0 then
+      sink_id = fallback
    end
 end
 
