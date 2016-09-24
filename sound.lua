@@ -1,5 +1,5 @@
 #!/usr/bin/env lua
-local sink_id = 0
+local sink_id = -1
 
 sound = {}
 function sound.init()
@@ -18,7 +18,7 @@ function sound.init()
    end
    pactl:close()
 
-   if sink_id == 0 then
+   if sink_id == -1 then
       sink_id = fallback
    end
 end
