@@ -9,5 +9,5 @@
 ! add Control = Control_L
 
 ! Map Pause key to activate screen saver
-keysym Pause = XF86ScreenSaver
+!keysym Pause = XF86ScreenSaver
 ! keysym Scroll_Lock = XF86ScreenSaver

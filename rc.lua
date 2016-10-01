@@ -413,9 +413,9 @@ globalkeys = awful.util.table.join(globalkeys,
 	awful.key({}, "XF86AudioStop",        function() media.stop() end))
 root.keys(globalkeys)
 
--- Screen saver
+-- Screen saver (XF86ScreenSaver)
 globalkeys = awful.util.table.join(globalkeys,
-	awful.key({}, "XF86ScreenSaver", function () awful.util.spawn("xscreensaver-command -activate", false) end))
+	awful.key({}, "Pause", function () awful.util.spawn("xautolock -locknow") end))
 root.keys(globalkeys)
 
 -- ...
@@ -568,8 +568,9 @@ run_once("pasystray")
 run_once("xcompmgr -cfn")
 
 -- X screen saver, use Pause key to activate
-run_once("xmodmap ~/config/awesome/.Xmodmap")
-run_once("xscreensaver -nosplash")
+awful.util.spawn_with_shell("xmodmap ~/config/awesome/.Xmodmap")
+-- run_once("xscreensaver -nosplash")
+run_once("~/.config/awesome/locker.sh")
 
 -- Music is Life!
 -- Use Ctrl-P to set this in preferences instead:
