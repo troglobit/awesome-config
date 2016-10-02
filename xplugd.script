@@ -27,7 +27,7 @@ if [ "$TYPE" != "display" ]; then
             xinput set-prop $DEVICE 'Synaptics Off' 1
             ;;
         keyboard,connected,*)
-            setxkbmap -option ctrl:nocaps
+            setxkbmap -layout se -option ctrl:nocaps
             ;;
     esac
     exit 0
