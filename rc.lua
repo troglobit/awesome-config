@@ -14,6 +14,9 @@ local menubar = require("menubar")
 -- Alt-Tab Switcher
 local switcher = require("awesome-switcher")
 
+-- Battery widget
+local battery = require("battery")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -226,6 +229,15 @@ for s = 1, screen.count() do
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
 
+    -- Batstat
+    batterywidget = wibox.widget.textbox()
+
+    batterywidget_timer = timer({timeout = 1})
+    batterywidget_timer:connect_signal("timeout", function()
+					  batterywidget:set_text(batteryInfo("BAT0"))
+    end)
+    batterywidget_timer:start()
+
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
@@ -234,7 +246,10 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(batterywidget)
+    if s == 1 then
+       right_layout:add(wibox.widget.systray())
+    end
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
