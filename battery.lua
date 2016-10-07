@@ -28,7 +28,11 @@ function batteryInfo(adapter)
     local cur = readBatFile(adapter, "charge_now", "energy_now")
     local cap = readBatFile(adapter, "charge_full", "energy_full")
     local sta = readBatFile(adapter, "status")
-    battery = math.floor(cur * 100 / cap)
+    if (cur and cap) then
+      battery = math.floor(cur * 100 / cap)
+    else
+      battery = 0;
+    end
 
     if sta:match("Charging") then
       icon = "⚡"
