@@ -5,7 +5,6 @@ local cmd = "dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify 
 
 function media.play()
    p = cmd .. "org.mpris.MediaPlayer2.Player.PlayPause"
-   os.execute("echo " .. p .. " >/tmp/tok")
    os.execute(p)
 end
 
