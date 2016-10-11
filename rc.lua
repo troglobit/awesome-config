@@ -10,7 +10,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-
+local vicious = require("vicious")
 -- Alt-Tab Switcher
 local switcher = require("awesome-switcher")
 
@@ -238,6 +238,16 @@ for s = 1, screen.count() do
     end)
     batterywidget_timer:start()
 
+    -- Initialize widget
+    cpuwidget = awful.widget.graph()
+    -- Graph properties
+    cpuwidget:set_width(50)
+    cpuwidget:set_background_color("#494B4F")
+    cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"}, 
+			     {1, "#AECF96" }}})
+    -- Register widget
+    vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
@@ -247,6 +257,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     right_layout:add(batterywidget)
+    right_layout:add(cpuwidget)
     if s == 1 then
        right_layout:add(wibox.widget.systray())
     end
