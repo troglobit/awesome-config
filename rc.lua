@@ -232,7 +232,7 @@ for s = 1, screen.count() do
     -- Batstat
     batterywidget = wibox.widget.textbox()
 
-    batterywidget_timer = timer({timeout = 1})
+    batterywidget_timer = timer({timeout = 10})
     batterywidget_timer:connect_signal("timeout", function()
 					  batterywidget:set_text(batteryInfo("BAT0"))
     end)
