@@ -592,7 +592,7 @@ run_once("nm-applet")
 run_once("pasystray")
 
 -- X compositing manager
-run_once("xcompmgr -cfn")
+--run_once("xcompmgr -cfn")
 
 -- X screen saver, use Pause key to activate
 awful.util.spawn_with_shell("xmodmap ~/config/awesome/.Xmodmap")
