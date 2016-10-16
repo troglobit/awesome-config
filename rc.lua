@@ -604,3 +604,6 @@ run_once("~/.config/awesome/locker.sh")
 --   --ui.track_notifications_enabled=false
 --run_once("spotify")
 -- }}}
+
+-- Set background image, if available
+awful.util.spawn_with_shell("sh ~/.fehbg")
