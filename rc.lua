@@ -595,10 +595,11 @@ run_once("pasystray")
 -- X compositing manager
 --run_once("xcompmgr -cfn")
 
--- X screen saver, use Pause key to activate
 awful.util.spawn_with_shell("xmodmap ~/config/awesome/.Xmodmap")
--- run_once("xscreensaver -nosplash")
 awful.util.spawn_with_shell("xrdb -merge ~/config/awesome/.Xresources")
+
+-- X screen saver, use Pause key to activate
+run_once("xscreensaver -nosplash")
 run_once("~/.config/awesome/locker.sh")
 
 -- Music is Life!
