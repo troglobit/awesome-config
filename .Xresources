@@ -1,0 +1,6 @@
+xterm*termName: xterm-256color
+XTerm*locale: true
+XTerm*metaSendsEscape: true
+Xterm*saveLines: 4096
+xterm*faceName: Envy Code R:size=11:antialias=true
+xterm*font: 7x13

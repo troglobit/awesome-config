@@ -60,7 +60,8 @@ end
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "terminator -m"
+--terminal = "terminator -m"
+terminal = "xterm"
 browser  = "firefox"
 email    = "thunderbird"
 plug     = os.getenv("HOME") .. "/.config/awesome/xplugd.script"
@@ -597,6 +598,7 @@ run_once("pasystray")
 -- X screen saver, use Pause key to activate
 awful.util.spawn_with_shell("xmodmap ~/config/awesome/.Xmodmap")
 -- run_once("xscreensaver -nosplash")
+awful.util.spawn_with_shell("xrdb -merge ~/config/awesome/.Xresources")
 run_once("~/.config/awesome/locker.sh")
 
 -- Music is Life!
