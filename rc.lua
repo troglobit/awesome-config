@@ -595,8 +595,8 @@ run_once("pasystray")
 -- X compositing manager
 --run_once("xcompmgr -cfn")
 
-awful.util.spawn_with_shell("xmodmap ~/config/awesome/.Xmodmap")
-awful.util.spawn_with_shell("xrdb -merge ~/config/awesome/.Xresources")
+awful.util.spawn_with_shell("xmodmap ~/.config/awesome/.Xmodmap")
+awful.util.spawn_with_shell("xrdb -merge ~/.config/awesome/.Xresources")
 
 -- X screen saver, use Pause key to activate
 run_once("xscreensaver -nosplash")
