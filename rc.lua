@@ -17,6 +17,9 @@ local switcher = require("awesome-switcher")
 -- Battery widget
 local battery = require("battery")
 
+-- Battery widget
+local vpn = require("vpn")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -239,6 +242,14 @@ for s = 1, screen.count() do
     end)
     batterywidget_timer:start()
 
+    -- VPN
+    vpnwidget = wibox.widget.textbox()
+    vpnwidget_timer = timer({ timeout = 5 })
+    vpnwidget_timer:connect_signal("timeout", function()
+				      vpnwidget:set_markup(vpnInfo("tun0"))
+    end)
+    vpnwidget_timer:start()
+
     -- Initialize widget
     cpuwidget = awful.widget.graph()
     -- Graph properties
@@ -257,6 +268,7 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+    right_layout:add(vpnwidget)
     right_layout:add(batterywidget)
     if s == 1 then
        right_layout:add(cpuwidget)
