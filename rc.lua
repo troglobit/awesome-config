@@ -607,8 +607,9 @@ run_once("pasystray")
 -- X compositing manager
 run_once("xcompmgr -cfn")
 
-awful.util.spawn_with_shell("xmodmap ~/.config/awesome/.Xmodmap")
-awful.util.spawn_with_shell("xrdb -merge ~/.config/awesome/.Xresources")
+-- Set up terminal resources and key bindings/overrides
+os.execute("xmodmap ~/.config/awesome/.Xmodmap")
+os.execute("xrdb -merge ~/.config/awesome/.Xresources")
 
 -- X screen saver, use Pause key to activate
 awful.util.spawn_with_shell("killall gnome-screensaver");
