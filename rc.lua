@@ -611,8 +611,11 @@ awful.util.spawn_with_shell("xmodmap ~/.config/awesome/.Xmodmap")
 awful.util.spawn_with_shell("xrdb -merge ~/.config/awesome/.Xresources")
 
 -- X screen saver, use Pause key to activate
+awful.util.spawn_with_shell("killall gnome-screensaver");
 run_once("xscreensaver -nosplash")
-run_once("~/.config/awesome/locker.sh")
+run_once("xautolock -detectsleep " ..
+	    "-time 15 -locker 'xscreensaver-command -lock' " ..
+	    " -notify 30 -notifier 'notify-send -u critical -t 10000 -- \"LOCKING screen in 30 seconds\"'")
 
 -- Music is Life!
 -- Use Ctrl-P to set this in preferences instead:
