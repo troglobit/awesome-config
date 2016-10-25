@@ -626,4 +626,4 @@ run_once("xautolock -detectsleep -time 15 -locker 'xscreensaver-command -lock'")
 -- }}}
 
 -- Set background image, if available
-awful.util.spawn_with_shell("sh ~/.fehbg")
+awful.util.spawn_with_shell("~/.fehbg")
