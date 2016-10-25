@@ -58,13 +58,18 @@ end
 -- }}}
 
 -- {{{ Variable definitions
+hostname = io.lines("/proc/sys/kernel/hostname")()
+
 -- Themes define colours, icons, font and wallpapers.
 -- default, sky, zenburn
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
---terminal = "terminator -m"
-terminal = "xterm"
+if hostname == 'carbon' then
+   terminal = "xterm"
+else
+   terminal = "terminator -m"
+end
 browser  = "firefox"
 email    = "thunderbird"
 plug     = os.getenv("HOME") .. "/.config/awesome/xplugd.script"
@@ -91,6 +96,7 @@ other_screen = math.max(screen.count(), 1)
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
+-- }}}
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
