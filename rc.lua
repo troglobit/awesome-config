@@ -66,7 +66,8 @@ beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 if hostname == 'carbon' then
-   terminal = "xterm"
+   -- terminal = "xterm"
+   terminal = "terminator -m"
 else
    terminal = "terminator -m"
 end
