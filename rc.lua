@@ -77,7 +77,7 @@ plug     = os.getenv("HOME") .. "/.config/awesome/xplugd.script"
 dialog   = os.getenv("HOME") .. "/.config/awesome/ctrl-alt-del.py"
 editor   = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
-irc_cmd  =  "x-terminal-emulator" .. " -c irc -e ssh -p222 pi.ircbox.org"
+irc_cmd  =  "x-terminal-emulator" .. " -c irc -e ssh -p222 de.troglobit.com"
 -- emacs_cmd = "emacs -mm --no-splash -bw 0"
 emacs_cmd = "emacs --no-splash"
 
