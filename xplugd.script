@@ -5,7 +5,8 @@
 # the projector is on our right and the laptop screen is the primary.
 
 if [ `hostname` = "carbon" ]; then
-    LAPTOP=LVDS-1
+    #LAPTOP=LVDS-1
+    LAPTOP=LVDS1
     DOCK=DVI-I-1
     DESKPOS=--right-of
     PRESPOS=--left-of
