@@ -8,11 +8,13 @@ if [ `hostname` = "carbon" ]; then
     #LAPTOP=LVDS-1
     LAPTOP=LVDS1
     DOCK=DVI-I-1
+    ALT=HDMI1
     DESKPOS=--right-of
     PRESPOS=--left-of
 else
     LAPTOP=LVDS1
     DOCK=HDMI3
+    ALT=DP1
     DESKPOS=--left-of
     PRESPOS=--right-of
 fi
@@ -43,6 +45,8 @@ fi
 
 if [ "$DEVICE" = "${DOCK}" ]; then
     xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP}
+elif [ "$DEVICE" = "${ALT}" ]; then
+    xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP} --auto
 elif [ "$DEVICE" != "${LAPTOP}" ]; then
     xrandr --output ${DEVICE} --auto ${PRESPOS} ${LAPTOP} --primary
 else
