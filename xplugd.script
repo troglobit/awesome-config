@@ -42,9 +42,9 @@ if [ "$STATUS" = "disconnected" ]; then
 fi
 
 if [ "$DEVICE" = "${DOCK}" ]; then
-    xrandr --output $DEVICE --auto --primary ${DESKPOS} ${LAPTOP}
-elif  [ "$DEVICE" != "${LAPTOP}" ]; then
-    xrandr --output $DEVICE --auto ${PRESPOS} ${LAPTOP} --primary
+    xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP}
+elif [ "$DEVICE" != "${LAPTOP}" ]; then
+    xrandr --output ${DEVICE} --auto ${PRESPOS} ${LAPTOP} --primary
 else
     xrandr --auto
 fi
