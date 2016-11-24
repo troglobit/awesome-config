@@ -220,6 +220,36 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+-- Batstat
+batterywidget = wibox.widget.textbox()
+
+batterywidget_timer = timer({timeout = 10})
+batterywidget_timer:connect_signal("timeout", function()
+				      batterywidget:set_text(batteryInfo("BAT0"))
+end)
+batterywidget_timer:start()
+batterywidget_timer:emit_signal("timeout")
+
+-- VPN
+vpnwidget = wibox.widget.textbox()
+vpnwidget_timer = timer({ timeout = 5 })
+vpnwidget_timer:connect_signal("timeout", function()
+				  vpnwidget:set_markup(vpnInfo("tun0"))
+end)
+vpnwidget_timer:start()
+vpnwidget_timer:emit_signal("timeout")
+
+-- Initialize widget
+cpuwidget = awful.widget.graph()
+-- Graph properties
+cpuwidget:set_width(50)
+cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"}, 
+			 {1, "#AECF96" }}})
+-- Register widget
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+
+
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -240,33 +270,6 @@ for s = 1, screen.count() do
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
 
-    -- Batstat
-    batterywidget = wibox.widget.textbox()
-
-    batterywidget_timer = timer({timeout = 10})
-    batterywidget_timer:connect_signal("timeout", function()
-					  batterywidget:set_text(batteryInfo("BAT0"))
-    end)
-    batterywidget_timer:start()
-
-    -- VPN
-    vpnwidget = wibox.widget.textbox()
-    vpnwidget_timer = timer({ timeout = 5 })
-    vpnwidget_timer:connect_signal("timeout", function()
-				      vpnwidget:set_markup(vpnInfo("tun0"))
-    end)
-    vpnwidget_timer:start()
-
-    -- Initialize widget
-    cpuwidget = awful.widget.graph()
-    -- Graph properties
-    cpuwidget:set_width(50)
-    cpuwidget:set_background_color("#494B4F")
-    cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"}, 
-			     {1, "#AECF96" }}})
-    -- Register widget
-    vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
-
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
@@ -278,9 +281,9 @@ for s = 1, screen.count() do
     right_layout:add(vpnwidget)
     right_layout:add(batterywidget)
     if s == 1 then
-       right_layout:add(cpuwidget)
        right_layout:add(wibox.widget.systray())
     end
+    right_layout:add(cpuwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
