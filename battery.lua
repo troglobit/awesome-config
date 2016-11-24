@@ -62,5 +62,5 @@ function batteryInfo(adapter)
 	 percent = ""
       end
    end
-   return " "..icon..battery..percent.." "
+   return adapter..": "..icon..battery..percent.." "
 end
