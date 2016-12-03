@@ -598,7 +598,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- {{{ Autostart apps
 function run_once(cmd)
    findme = cmd:match("([^ \t]+).*")
-   if os.execute("pgrep -u joachim -x " .. findme) ~= 0 then
+   if os.execute("pgrep -u $LOGNAME -x " .. findme) ~= 0 then
       awful.util.spawn_with_shell(cmd)
    end
 end
