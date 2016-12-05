@@ -46,11 +46,14 @@ fi
 if [ "$DEVICE" = "${DOCK}" ]; then
     xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP}
 elif [ "$DEVICE" = "${ALT}" ]; then
-    xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP} --auto
+    if [ `hostname` = "carbon" ]; then
+	xrandr --output ${LAPTOP} --off
+	xrandr --output ${DEVICE} --auto --primary
+    else
+	xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP} --auto
+    fi
 elif [ "$DEVICE" != "${LAPTOP}" ]; then
     xrandr --output ${DEVICE} --auto ${PRESPOS} ${LAPTOP} --primary
-else
-    xrandr --auto
 fi
 
 #echo 'awesome.restart()' | awesome-client
