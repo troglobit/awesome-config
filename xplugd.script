@@ -54,6 +54,8 @@ elif [ "$DEVICE" = "${ALT}" ]; then
     fi
 elif [ "$DEVICE" != "${LAPTOP}" ]; then
     xrandr --output ${DEVICE} --auto ${PRESPOS} ${LAPTOP} --primary
+else
+    xrandr --auto
 fi
 
 #echo 'awesome.restart()' | awesome-client
