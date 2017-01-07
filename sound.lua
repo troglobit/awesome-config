@@ -4,6 +4,7 @@ local sink_id = -1
 sound = {}
 function sound.init()
    fallback = 0
+   bluez = -1
 
    pactl = io.popen("pactl list sinks short")
    for line in pactl:lines() do
@@ -15,11 +16,17 @@ function sound.init()
       if card:match(".*alsa_output.*") then
 	 fallback = tonumber(sink)
       end
+      if card:match(".*bluez_sink.*") then
+      	 bluez = tonumber(sink)
+      end
    end
    pactl:close()
 
    if sink_id == -1 then
       sink_id = fallback
+   end
+   if bluez ~= -1 then
+      sink_id = bluez
    end
 end
 
