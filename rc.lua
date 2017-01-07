@@ -606,6 +606,9 @@ end
 -- Neat dock/undock daemon
 run_once("xplugd " .. plug)
 
+-- Bluetooth applet
+run_once("blueman-applet")
+
 -- Network status in tray
 run_once("nm-applet")
 
