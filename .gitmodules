@@ -1,0 +1,3 @@
+[submodule "awesome-switcher"]
+	path = awesome-switcher
+	url = ../awesome-switcher.git
