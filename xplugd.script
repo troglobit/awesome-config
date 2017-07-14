@@ -7,7 +7,7 @@
 if [ `hostname` = "carbon" ]; then
     #LAPTOP=LVDS-1
     LAPTOP=LVDS1
-    DOCK=DVI-I-1
+    DOCK=DVI-I-1-1
     ALT=HDMI1
     DESKPOS=--right-of
     PRESPOS=--left-of

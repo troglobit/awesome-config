@@ -616,7 +616,9 @@ run_once("nm-applet")
 run_once("pasystray")
 
 -- X compositing manager
-run_once("xcompmgr -sf &")
+if hostname ~= 'carbon' then
+   run_once("xcompmgr -sf &")
+end
 
 -- Set up terminal resources and key bindings/overrides
 os.execute("xmodmap ~/.config/awesome/.Xmodmap")
