@@ -15,7 +15,12 @@ else
     LAPTOP=LVDS1
     DOCK=HDMI3
     ALT=DP1
-    DESKPOS=--left-of
+    lsusb | grep "ASIX AX88772" >/dev/null
+    if [ $? -eq 0 ]; then
+	DESKPOS=--right-of
+    else
+	DESKPOS=--left-of
+    fi
     PRESPOS=--right-of
 fi
 
