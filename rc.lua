@@ -223,7 +223,7 @@ mytasklist.buttons = awful.util.table.join(
 -- Batstat
 batterywidget = wibox.widget.textbox()
 
-batterywidget_timer = timer({timeout = 10})
+batterywidget_timer = timer({timeout = 30})
 batterywidget_timer:connect_signal("timeout", function()
 				      batterywidget:set_text(batteryInfo("BAT0"))
 end)
@@ -232,7 +232,7 @@ batterywidget_timer:emit_signal("timeout")
 
 -- VPN
 vpnwidget = wibox.widget.textbox()
-vpnwidget_timer = timer({ timeout = 5 })
+vpnwidget_timer = timer({ timeout = 30 })
 vpnwidget_timer:connect_signal("timeout", function()
 				  vpnwidget:set_markup(vpnInfo("tun0"))
 end)

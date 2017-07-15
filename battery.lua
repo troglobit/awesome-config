@@ -45,7 +45,7 @@ function batteryInfo(adapter)
 	    naughty.notify({
 		  title    = "Battery Warning"
 		  , text     = "Battery low!".."  "..battery..percent.."  ".."left!"
-		  , timeout  = 5
+		  , timeout  = 30
 		  , position = "top_right"
 		  , fg       = beautiful.fg_focus
 		  , bg       = beautiful.bg_focus
