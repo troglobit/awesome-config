@@ -28,7 +28,10 @@ DESC=$*
 if [ "$TYPE" != "display" ]; then
     case "$TYPE,$STATUS,$DESC" in
         pointer,connected,"SynPS/2 Synaptics TouchPad")
-            xinput set-prop $DEVICE 'Synaptics Off' 1
+            xinput set-prop $DEVICE 'Synaptics Off' 0
+            xinput set-prop $DEVICE 'VertScrollDelta'  -111
+            xinput set-prop $DEVICE 'HorizScrollDelta' -111
+            xinput set-prop $DEVICE 'Synaptics Finger' 50 90 255
             ;;
         keyboard,connected,*)
             setxkbmap -layout se -option ctrl:nocaps
