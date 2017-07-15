@@ -471,6 +471,11 @@ globalkeys = awful.util.table.join(globalkeys,
 	awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("xautolock -locknow") end))
 root.keys(globalkeys)
 
+-- Other keys
+-- globalkeys = awful.util.table.join(globalkeys,
+-- 	awful.key({}, "XF86WakeUp", function() awful.util.spawn("systemctl suspend") end))
+-- root.keys(globalkeys)
+
 -- ...
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
