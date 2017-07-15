@@ -47,11 +47,12 @@ if [ "$STATUS" = "disconnected" ]; then
 fi
 
 if [ "$DEVICE" = "${DOCK}" ]; then
-    xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP}
+    xrandr --output ${DEVICE} --auto ${DESKPOS} ${LAPTOP} --primary
 elif [ "$DEVICE" = "${ALT}" ]; then
     if [ `hostname` = "carbon" ]; then
-	xrandr --output ${LAPTOP} --off
-	xrandr --output ${DEVICE} --auto --primary
+	xrandr --output ${LAPTOP} --auto --primary ${PRESPOS} ${DEVICE} --auto
+#	xrandr --output ${LAPTOP} --off
+#	xrandr --output ${DEVICE} --auto --primary
     else
 	xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP} --auto
     fi
