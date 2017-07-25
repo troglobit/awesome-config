@@ -4,6 +4,13 @@
 # placed left of the internal laptop screen, while during presentations
 # the projector is on our right and the laptop screen is the primary.
 
+for file in /sys/class/drm/*/edid ; do echo $file; strings $file | grep S2401W && break; done
+if [ $? -eq 0 ]; then
+    DISPLAY="EIZO"
+else
+    DISPLAY="UNKNOWN"
+fi
+
 if [ `hostname` = "carbon" ]; then
     #LAPTOP=LVDS-1
     LAPTOP=LVDS1
@@ -14,8 +21,7 @@ if [ `hostname` = "carbon" ]; then
 else
     LAPTOP=LVDS1
     ALT=DP1
-    xrandr |grep "HDMI2 connected" >/dev/null
-    if [ $? -eq 0 ]; then
+    if [ "$DISPLAY" = "EIZO" ]; then
 	DOCK=HDMI2
 	DESKPOS=--left-of
     else
