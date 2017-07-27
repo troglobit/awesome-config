@@ -4,12 +4,121 @@
 # placed left of the internal laptop screen, while during presentations
 # the projector is on our right and the laptop screen is the primary.
 
-for file in /sys/class/drm/*/edid ; do echo $file; strings $file | grep S2401W && break; done
-if [ $? -eq 0 ]; then
-    DISPLAY="EIZO"
+# Cache of active dock display
+CACHE=/tmp/xplugd.cache
+
+# Enable logging by writing to a file in /tmp
+#LOG=/tmp/xplugd.log
+
+TYPE=$1
+DEVICE=$2
+STATUS=$3
+shift 3
+DESC=$*
+
+log()
+{
+    if [ ! -f $LOG -a -n "$LOG" ]; then
+	touch $LOG
+    fi
+    if [ -f $LOG ]; then
+	echo "$*" >>$LOG
+    fi
+}
+
+randr()
+{
+    #XRANDR="xrandr --nograb"
+    XRANDR="xrandr"
+
+    log "CMD: $XRANDR $*"
+    output=`$XRANDR $*`
+    log $output
+}
+
+display()
+{
+    for file in /sys/class/drm/*/edid; do
+	if [ -n "`strings $file | grep S2401W`" ]; then
+	    echo "EIZO"
+	    return
+	fi
+	if [ -n "`strings $file | grep U2412M`" ]; then
+	    echo "DELL"
+	    return
+	fi
+    done
+    echo ""
+}
+
+placement()
+{
+    if [ `hostname` != "troglobit" ]; then
+	echo "--right-of"
+    else
+	DISP=`display`
+	log "Found display $DISP"
+	if [ "$DISP" = "EIZO" ]; then
+	    echo "--left-of"
+	else
+	    echo "--right-of"
+	fi
+    fi
+}
+
+if [ "$TYPE" != "display" ]; then
+#    log "Peripheral $TYPE $STATUS: $DESC"
+    case "$TYPE,$STATUS,$DESC" in
+        pointer,connected,"SynPS/2 Synaptics TouchPad")
+            xinput set-prop $DEVICE 'Synaptics Off' 0
+            xinput set-prop $DEVICE 'VertScrollDelta'  -111
+            xinput set-prop $DEVICE 'HorizScrollDelta' -111
+            xinput set-prop $DEVICE 'Synaptics Finger' 50 90 255
+            ;;
+        keyboard,connected,*)
+            setxkbmap -layout se -option ctrl:nocaps
+            ;;
+    esac
 else
-    DISPLAY="UNKNOWN"
+    if [ "$STATUS" = "disconnected" ]; then
+	randr --output $DEVICE --off
+    else
+	if [ "$DEVICE" = "LVDS1" ]; then
+	    log "NOP LVDS1 connected"
+	    exit 0
+	fi
+	randr --output $DEVICE --primary `placement` LVDS1 --auto
+    fi
 fi
+
+exit 0
+
+############################### SCRATCH BELOW ###############################
+if [ "$STATUS" = "disconnected" ]; then
+#    log "Disconnect message for $DEVICE ..."
+    if [ -f $CACHE ]; then
+	CACHED=`cat $CACHE`
+	if [ "$CACHED" = "$DEVICE" ]; then
+	    log "Undocked $DEVICE, restoring laptop screen as default."
+	    randr --output $DEVICE --off
+	    rm $CACHE
+	fi
+    fi
+    exit 0
+fi
+
+# Home: Eizo S2401W
+# Work: DELL U2412M
+DISPLAY=""
+for file in /sys/class/drm/*/edid; do
+    if   [ -n "`strings $file | grep S2401W`" ]; then
+	DISPLAY="EIZO"
+	break
+    elif [ -n "`strings $file | grep U2412M`" ]; then
+	DISPLAY="DELL"
+	break
+    fi
+done
 
 if [ `hostname` = "carbon" ]; then
     #LAPTOP=LVDS-1
@@ -31,47 +140,32 @@ else
     PRESPOS=--right-of
 fi
 
-TYPE=$1
-DEVICE=$2
-STATUS=$3
-shift 3
-DESC=$*
-
-if [ "$TYPE" != "display" ]; then
-    case "$TYPE,$STATUS,$DESC" in
-        pointer,connected,"SynPS/2 Synaptics TouchPad")
-            xinput set-prop $DEVICE 'Synaptics Off' 0
-            xinput set-prop $DEVICE 'VertScrollDelta'  -111
-            xinput set-prop $DEVICE 'HorizScrollDelta' -111
-            xinput set-prop $DEVICE 'Synaptics Finger' 50 90 255
-            ;;
-        keyboard,connected,*)
-            setxkbmap -layout se -option ctrl:nocaps
-            ;;
-    esac
-    exit 0
-fi
-
-if [ "$STATUS" = "disconnected" ]; then
-    xrandr --output $DEVICE --off
-    #echo 'awesome.restart()' | awesome-client
-    exit 0
-fi
+log "DISPLAY : $DISPLAY"
+log "LAPTOP  : $LAPTOP"
+log "DOCK    : $DOCK"
+log "ALT     : $ALT"
+log "DESKPOS : $DESKPOS"
+log "PRESPOS : $PRESPOS"
 
 if [ "$DEVICE" = "${DOCK}" ]; then
-    xrandr --output ${DEVICE} --auto ${DESKPOS} ${LAPTOP} --primary
+    log "Docked $DEVICE ${DESKPOS} ${LAPTOP}"
+    randr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP}
+    echo "$DEVICE" >$CACHE
 elif [ "$DEVICE" = "${ALT}" ]; then
+    log "Alt $DEVICE, presentation mode"
     if [ `hostname` = "carbon" ]; then
-	xrandr --output ${LAPTOP} --auto --primary ${PRESPOS} ${DEVICE} --auto
-#	xrandr --output ${LAPTOP} --off
-#	xrandr --output ${DEVICE} --auto --primary
+	randr --output ${LAPTOP} --auto --primary ${PRESPOS} ${DEVICE} --auto
     else
-	xrandr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP} --auto
+	randr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP} --auto
     fi
+    echo "$DEVICE" >$CACHE
 elif [ "$DEVICE" != "${LAPTOP}" ]; then
-    xrandr --output ${DEVICE} --auto ${PRESPOS} ${LAPTOP} --primary
+    log "Standalone $DEVICE setup"
+    randr --output ${DEVICE} --auto ${PRESPOS} ${LAPTOP} --primary
+    echo "$DEVICE" >$CACHE
 else
-    xrandr --auto
+    log "Fallback $DEVICE."
+    randr --auto
 fi
 
-#echo 'awesome.restart()' | awesome-client
+exit 0
