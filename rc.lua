@@ -82,7 +82,7 @@ irc_cmd  =  "x-terminal-emulator" .. " -c irc -e ssh -p222 de.troglobit.com"
 emacs_cmd = "emacs --no-splash"
 
 -- Initialize screen(s)
-randr.init(plug)
+--randr.init(plug)
 
 -- Initialize sound
 sound.init()
