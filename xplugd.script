@@ -54,16 +54,20 @@ display()
 placement()
 {
     if [ `hostname` != "troglobit" ]; then
-	echo "--right-of"
+	p="--right-of"
     else
 	DISP=`display`
 	log "Found display $DISP"
 	if [ "$DISP" = "EIZO" ]; then
-	    echo "--left-of"
+	    p="--left-of"
+	elif [ "$DISP" = "DELL" ]; then
+	    p="--right-of"
 	else
-	    echo "--right-of"
+	    p="--same-as"
 	fi
     fi
+    log "Placement $p"
+    echo $p
 }
 
 if [ "$TYPE" != "display" ]; then
