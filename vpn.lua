@@ -3,7 +3,7 @@
 function vpnInfo(tunnel)
     status = " VPN: N/A "
 
-    fp = io.popen("route -n | grep "..tunnel, "r")
+    fp = io.popen("ip route | grep "..tunnel, "r")
     if fp then
        if fp:read() == nil then
 	  status = " <span color='#FF0000'>VPN: OFF</span> "
