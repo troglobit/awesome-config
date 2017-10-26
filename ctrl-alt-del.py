@@ -13,6 +13,7 @@ if __name__ == "__main__":
     dialog.add_button("Sleep", 1)
     dialog.add_button("Restart", 2)
     dialog.add_button("Shut Down", 3)
+    dialog.add_button("Cancel", 10)
     action = dialog.run()
     if action == 0:
         os.system("echo 'awesome.quit()' | awesome-client -");

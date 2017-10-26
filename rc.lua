@@ -702,8 +702,8 @@ os.execute("xrdb -merge ~/.config/awesome/.Xresources")
 -- http://unix.stackexchange.com/questions/194582/turn-screen-off-when-inactive-for-time-period-in-rhel-and-debian
 os.execute("xset dpms 5 2 2")
 os.execute("gsettings set org.gnome.settings-daemon.plugins.power active false")
--- run_once("xscreensaver -nosplash")
--- run_once("xautolock -detectsleep -time 15 -locker 'xscreensaver-command -lock'")
+run_once("xscreensaver -nosplash")
+run_once("xautolock -detectsleep -time 15 -locker 'xscreensaver-command -lock'")
 
 -- Music is Life!
 -- Use Ctrl-P to set this in preferences instead:
