@@ -87,10 +87,6 @@ randr.init(plug)
 -- Initialize sound
 sound.init()
 
--- When screens have been set up, we figure out where to place
--- IRC and Spotify
-other_screen = math.max(screen.count(), 1)
-
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
