@@ -7,7 +7,7 @@ import os
 
 if __name__ == "__main__":
     dialog = gtk.MessageDialog(type=gtk.MESSAGE_WARNING)
-    dialog.set_position(1)
+    dialog.set_position(gtk.WIN_POS_CENTER)
     dialog.set_markup("<big><b>Shutdown computer now?</b></big>")
     dialog.add_button("Log Out", 0)
     dialog.add_button("Sleep", 1)
