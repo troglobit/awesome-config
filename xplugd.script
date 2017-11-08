@@ -87,11 +87,11 @@ else
     if [ "$STATUS" = "disconnected" ]; then
 	randr --output $DEVICE --off
     else
-	if [ "$DEVICE" = "LVDS1" ]; then
-	    log "NOP LVDS1 connected"
+	if [ "$DEVICE" = "LVDS-1" ]; then
+	    log "NOP LVDS-1 connected"
 	    exit 0
 	fi
-	randr --output $DEVICE --primary `placement` LVDS1 --auto
+	randr --output $DEVICE --primary `placement` LVDS-1 --auto
     fi
 fi
 
@@ -126,19 +126,19 @@ done
 
 if [ `hostname` = "carbon" ]; then
     #LAPTOP=LVDS-1
-    LAPTOP=LVDS1
+    LAPTOP=LVDS-1
     DOCK=DVI-I-1-1
-    ALT=HDMI1
+    ALT=HDMI-1
     DESKPOS=--right-of
     PRESPOS=--left-of
 else
-    LAPTOP=LVDS1
-    ALT=DP1
+    LAPTOP=LVDS-1
+    ALT=DP-1
     if [ "$DISPLAY" = "EIZO" ]; then
-	DOCK=HDMI2
+	DOCK=HDMI-3
 	DESKPOS=--left-of
     else
-	DOCK=HDMI3
+	DOCK=HDMI-3
 	DESKPOS=--right-of
     fi
     PRESPOS=--right-of
