@@ -14,7 +14,11 @@ Tools
 You may benefit from installing the following external tools:
 
 - xrandr
+- xautolock
 - xscreensaver
-- xplugd
+- [xplugd][]
+- blueman
 - pasystray
 - scrot
+
+[xplugd]: https://github.com/troglobit/xplugd
