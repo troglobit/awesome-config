@@ -73,7 +73,7 @@ else
 end
 browser  = "firefox"
 email    = "thunderbird"
-plug     = os.getenv("HOME") .. "/.config/awesome/xplugd.script"
+plug     = os.getenv("HOME") .. "/.config/awesome/xplugrc"
 dialog   = os.getenv("HOME") .. "/.config/awesome/ctrl-alt-del.py"
 editor   = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
