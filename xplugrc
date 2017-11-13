@@ -76,6 +76,7 @@ if [ "$TYPE" != "display" ]; then
         pointer,connected,"SynPS/2 Synaptics TouchPad")
             xinput enable   $DEVICE
             xinput set-prop $DEVICE "libinput Tapping Enabled" 1
+	    xinput set-prop $DEVICE "libinput Natural Scrolling Enabled" 1
             ;;
         keyboard,connected,*)
             setxkbmap -layout se -option ctrl:nocaps
