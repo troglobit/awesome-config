@@ -366,14 +366,14 @@ globalkeys = awful.util.table.join(
         {description = "go back", group = "client"}),
 
     -- Alt-Tab Switcher
-    awful.key({ "Mod1",           }, "Tab",
-       function ()
-	  switcher.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")
-    end),
-    awful.key({ "Mod1", "Shift"   }, "Tab",
-       function ()
-	  switcher.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")
-    end),
+    -- awful.key({ "Mod1",           }, "Tab",
+    --    function ()
+    -- 	  switcher.switch( 1, "Mod1", "Alt_L", "Shift", "Tab")
+    -- end),
+    -- awful.key({ "Mod1",  "Shift"  }, "Tab",
+    --    function ()
+    -- 	  switcher.switch(-1, "Mod1", "Alt_L", "Shift", "Tab")
+    -- end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
