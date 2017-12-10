@@ -28,11 +28,12 @@ function batteryInfo(adapter)
       local cur = readBatFile(adapter, "charge_now", "energy_now")
       local cap = readBatFile(adapter, "charge_full", "energy_full")
       local sta = readBatFile(adapter, "status")
+
       if (cur and cap) then
 	 battery = math.floor(cur * 100 / cap)
       else
 	 battery = 0
-	 sta = "Unknown"
+	 sta = "None"
       end
 
       if sta:match("Charging") then
@@ -51,7 +52,7 @@ function batteryInfo(adapter)
 		  , bg       = beautiful.bg_focus
 	    })
 	 end
-      elseif sta:match("Unknown") then
+      elseif sta:match("None") then
 	 battery = "N/A"
 	 icon = ""
 	 percent = ""
