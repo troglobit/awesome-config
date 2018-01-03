@@ -57,9 +57,9 @@ function batteryInfo(adapter)
 	 icon = ""
 	 percent = ""
       else -- sta == Unknown
-	 -- Neither charging or discharging, assume we're on A/C
-	 battery = "100"
-	 icon = "⚡"
+--	 -- Neither charging or discharging, assume we're the secondary battery
+--	 battery = "100"
+--	 icon = "⚡"
 	 percent = "%"
       end
    end
