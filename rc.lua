@@ -255,11 +255,15 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
     -- Batstat
-    batterywidget = wibox.widget.textbox()
+    batterywidget1 = wibox.widget.textbox()
+    batterywidget2 = wibox.widget.textbox()
 
     batterywidget_timer = timer({timeout = 30})
     batterywidget_timer:connect_signal("timeout", function()
-					  batterywidget:set_text(batteryInfo("BAT0"))
+					  batterywidget1:set_text(batteryInfo("BAT0"))
+    end)
+    batterywidget_timer:connect_signal("timeout", function()
+					  batterywidget2:set_text(batteryInfo("BAT1"))
     end)
     batterywidget_timer:start()
     batterywidget_timer:emit_signal("timeout")
@@ -297,7 +301,8 @@ awful.screen.connect_for_each_screen(function(s)
 	  layout = wibox.layout.fixed.horizontal,
 	  mykeyboardlayout,
 	  vpnwidget,
-	  batterywidget,
+	  batterywidget1,
+	  batterywidget2,
 	  wibox.widget.systray(),
 	  cpuwidget,
 	  mytextclock,
@@ -716,3 +721,4 @@ run_once("xautolock -detectsleep -time 15 -locker 'xscreensaver-command -lock'")
 
 -- Set background image, if available
 awful.util.spawn_with_shell("~/.fehbg")
+
