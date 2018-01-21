@@ -757,7 +757,7 @@ run_once("xautolock -detectsleep -time 15 -locker 'xscreensaver-command -lock'")
 -- Music is Life!
 -- Use Ctrl-P to set this in preferences instead:
 --   --ui.track_notifications_enabled=false
--- run_once("spotify")
+run_once("spotify")
 -- }}}
 
 -- Set background image, if available
