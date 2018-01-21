@@ -1,7 +1,8 @@
 #!/usr/bin/env lua
 local sink_id = -1
 
-sound = {}
+local sound = {}
+
 function sound.init()
    fallback = 0
    bluez = -1
@@ -41,3 +42,5 @@ end
 function sound.mute()
    os.execute("pactl set-sink-mute " .. sink_id .. " toggle")
 end
+
+return sound

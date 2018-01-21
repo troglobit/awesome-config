@@ -1,10 +1,11 @@
 #!/usr/bin/env lua
 
+local randr = {}
+
 function trim(s)
       return (string.gsub(s, "^%s*(.-)%s*$", "%1"))
 end
 
-randr = {}
 function randr.init(cmd)
    outputs = {}
    xrandr = io.popen("xrandr -q")
@@ -32,3 +33,4 @@ function randr.init(cmd)
    xinput:close()
 end
 
+return randr

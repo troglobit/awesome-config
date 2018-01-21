@@ -1,5 +1,6 @@
 #!/usr/bin/env lua
-media = {}
+
+local media = {}
 
 local cmd = "dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 "
 
@@ -20,3 +21,4 @@ function media.prev()
    os.execute(cmd .. "org.mpris.MediaPlayer2.Player.Previous")
 end
 
+return media
