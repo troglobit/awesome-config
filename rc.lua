@@ -709,10 +709,19 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- {{{ Autostart apps
-function run_once(cmd)
-   findme = cmd:match("([^ \t]+).*")
-   if os.execute("pgrep -u $LOGNAME -x " .. findme) ~= 0 then
-      awful.util.spawn_with_shell(cmd)
+function run_once(prg, args, pname, screen)
+   if not prg then
+      do return nil end
+   end
+
+   if not pname then
+      pname = prg
+   end
+
+   if not args then
+      awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. ")",screen)
+   else
+      awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. " " .. args .. ")",screen)
    end
 end
 
