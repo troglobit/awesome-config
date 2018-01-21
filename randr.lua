@@ -18,7 +18,7 @@ function randr.init(cmd)
    xrandr:close()
 
    for i,v in ipairs(outputs) do
-      out, stat = unpack(v)
+      out, stat = table.unpack(v)
       os.execute(string.format("%s display %s %s", cmd, out, stat))
    end
 
