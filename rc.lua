@@ -738,9 +738,8 @@ run_once("nm-applet")
 run_once("pasystray")
 
 -- X compositing manager
--- run_once("xcompmgr -sf &")
 if hostname ~= 'carbon' then
-   run_once("xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &")
+   run_once("xcompmgr -s -t-5 -l-5 -r4.2 -o.55 &")
 end
 
 -- Set up terminal resources and key bindings/overrides
