@@ -90,8 +90,16 @@ else
 	    log "NOP LVDS-1 connected"
 	    exit 0
 	fi
-	randr --output $DEVICE --primary `placement` LVDS-1 --auto
-	randr --output LVDS-1 --pos 0x432
+	pos=`placement`
+	randr --output $DEVICE --primary $pos LVDS-1 --auto
+	if [ "$pos" = "--left-of" ]; then
+		pos=1920x432
+	elif [ "$pos" = "--right-of" ]; then
+		pos=0x432
+	else
+		pos=0x0
+	fi
+	randr --output LVDS-1 --pos $pos
     fi
 fi
 
