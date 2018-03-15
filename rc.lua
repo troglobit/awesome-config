@@ -556,9 +556,13 @@ globalkeys = gears.table.join(globalkeys,
 	awful.key({}, "XF86AudioLowerVolume", function() sound.decr() end),
 	awful.key({}, "XF86AudioMute",        function() sound.mute() end),
 	awful.key({}, "XF86AudioNext",        function() media.next() end),
+	awful.key({ modkey, "Control" }, "Right", function() media.next() end),
 	awful.key({}, "XF86AudioPrev",        function() media.prev() end),
+	awful.key({ modkey, "Control" }, "Left", function() media.prev() end),
 	awful.key({}, "XF86AudioPlay",        function() media.play() end),
-	awful.key({}, "XF86AudioStop",        function() media.stop() end))
+	awful.key({ modkey, "Control" }, "Down", function() media.play() end),
+	awful.key({}, "XF86AudioStop",        function() media.stop() end),
+	awful.key({ modkey, "Control" }, "Up", function() media.stop() end))
 root.keys(globalkeys)
 
 -- Screen saver (XF86ScreenSaver)
