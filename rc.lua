@@ -565,7 +565,9 @@ root.keys(globalkeys)
 -- Screen saver (XF86ScreenSaver)
 globalkeys = gears.table.join(globalkeys,
 	awful.key({}, "Pause",                function () awful.util.spawn("xautolock -locknow") end),
-	awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("xautolock -locknow") end))
+	awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("xautolock -locknow") end),
+	awful.key({}, "XF86ScreenSaver",      function () awful.util.spawn("xautolock -locknow") end)
+)
 root.keys(globalkeys)
 
 -- Other keys
