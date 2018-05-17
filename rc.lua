@@ -571,9 +571,13 @@ globalkeys = gears.table.join(globalkeys,
 root.keys(globalkeys)
 
 -- Other keys
--- globalkeys = gears.table.join(globalkeys,
--- 	awful.key({}, "XF86WakeUp", function() awful.util.spawn("systemctl suspend") end))
--- root.keys(globalkeys)
+globalkeys = gears.table.join(globalkeys,
+	awful.key({}, "XF86Suspend", function() awful.util.spawn("systemctl suspend") end))
+root.keys(globalkeys)
+
+globalkeys = gears.table.join(globalkeys,
+ 	awful.key({}, "XF86Display", function() awful.util.spawn("xrandr --output HDMI-3 --right-of LVDS-1 --auto") end))
+root.keys(globalkeys)
 
 -- ...
 clientbuttons = gears.table.join(
