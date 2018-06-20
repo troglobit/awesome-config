@@ -17,7 +17,7 @@ require("awful.hotkeys_popup.keys")
 
 local vicious = require("vicious")
 -- Alt-Tab Switcher
---local switcher = require("awesome-switcher")
+local switcher = require("awesome-switcher")
 
 -- Battery widget
 local battery = require("battery")
@@ -383,14 +383,14 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Alt-Tab Switcher
-    -- awful.key({ "Mod1",           }, "Tab",
-    --    function ()
-    -- 	  switcher.switch( 1, "Mod1", "Alt_L", "Shift", "Tab")
-    -- end),
-    -- awful.key({ "Mod1",  "Shift"  }, "Tab",
-    --    function ()
-    -- 	  switcher.switch(-1, "Mod1", "Alt_L", "Shift", "Tab")
-    -- end),
+    awful.key({ "Mod1",           }, "Tab",
+       function ()
+    	  switcher.switch( 1, "Mod1", "Alt_L", "Shift", "Tab")
+    end),
+    awful.key({ "Mod1",  "Shift"  }, "Tab",
+       function ()
+    	  switcher.switch(-1, "Mod1", "Alt_L", "Shift", "Tab")
+    end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
