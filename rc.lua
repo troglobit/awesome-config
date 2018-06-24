@@ -77,7 +77,7 @@ else
    terminal = "terminator -m"
 end
 browser  = "firefox"
-email    = "thunderbird"
+email    = "evolution"
 plug     = os.getenv("HOME") .. "/.config/awesome/xplugrc"
 dialog   = os.getenv("HOME") .. "/.config/awesome/ctrl-alt-del.py"
 editor   = os.getenv("EDITOR") or "editor"
@@ -393,6 +393,14 @@ globalkeys = gears.table.join(
     end),
 
     -- Standard program
+    awful.key({ modkey,           }, "F1", function () awful.spawn(irc_cmd) end,
+              {description = "start irc", group = "programs"}),
+    awful.key({ modkey,           }, "F2", function () awful.spawn(emacs_cmd) end,
+              {description = "start Emacs", group = "programs"}),
+    awful.key({ modkey,           }, "F3", function () awful.spawn(browser) end,
+              {description = "start browser", group = "programs"}),
+    awful.key({ modkey,           }, "F4", function () awful.spawn(email) end,
+              {description = "start email", group = "programs"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
