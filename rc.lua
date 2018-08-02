@@ -742,6 +742,11 @@ function run_once(prg, args, pname, screen)
    end
 end
 
+-- PolicyKit, Gnome settings and the keyring daemon
+run_once("/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1")
+run_once("/usr/lib/gnome-settings-daemon/gsd-xsettings")
+run_once("gnome-keyring-daemon")
+
 -- Neat dock/undock daemon
 run_once("xplugd " .. plug)
 
