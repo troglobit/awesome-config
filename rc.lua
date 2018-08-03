@@ -572,6 +572,13 @@ globalkeys = gears.table.join(globalkeys,
 	awful.key({ modkey, "Control" }, "Up", function() media.stop() end))
 root.keys(globalkeys)
 
+-- Brightness
+globalkeys = gears.table.join(globalkeys,
+	awful.key({}, "XF86MonBrightnessUp",   function () awful.util.spawn("light -A 10") end),
+	awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn("light -U 10") end)
+)
+root.keys(globalkeys)
+
 -- Screen saver (XF86ScreenSaver)
 globalkeys = gears.table.join(globalkeys,
 	awful.key({}, "Pause",                function () awful.util.spawn("xautolock -locknow") end),

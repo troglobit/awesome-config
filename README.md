@@ -17,8 +17,10 @@ You may benefit from installing the following external tools:
 - xautolock
 - xscreensaver
 - [xplugd][]
+- [light][]
 - blueman
 - pasystray
 - scrot
 
 [xplugd]: https://github.com/troglobit/xplugd
+[light]:  https://github.com/haikarainen/light
