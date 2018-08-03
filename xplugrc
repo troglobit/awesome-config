@@ -4,11 +4,14 @@
 # placed left of the internal laptop screen, while during presentations
 # the projector is on our right and the laptop screen is the primary.
 
+# Built-in monitor, if any
+BUILTIN=LVDS-1
+
 # Cache of active dock display
 CACHE=/tmp/xplugd.cache
 
 # Enable logging by writing to a file in /tmp
-#LOG=/tmp/xplugd.log
+LOG=/tmp/xplugd.log
 
 TYPE=$1
 DEVICE=$2
@@ -70,6 +73,10 @@ placement()
     echo $p
 }
 
+if [ `hostname` = "luthien" ]; then
+    BUILTIN=eDP-1
+fi
+
 if [ "$TYPE" != "display" ]; then
 #    log "Peripheral $TYPE $STATUS: $DESC"
     case "$TYPE,$STATUS,$DESC" in
@@ -85,21 +92,28 @@ if [ "$TYPE" != "display" ]; then
 else
     if [ "$STATUS" = "disconnected" ]; then
 	randr --output $DEVICE --off
+	randr --output $BUILTIN --scale 1x1
     else
-	if [ "$DEVICE" = "LVDS-1" ]; then
-	    log "NOP LVDS-1 connected"
+	if [ "$DEVICE" = "LVDS-1" -o "$DEVICE" = "eDP-1" ]; then
+	    log "NOP $DEVICE already connected"
 	    exit 0
 	fi
 	pos=`placement`
-	randr --output $DEVICE --primary $pos LVDS-1 --auto
+	scale=""
+	randr --output $DEVICE --primary $pos $BUILTIN --auto
 	if [ "$pos" = "--left-of" ]; then
 		pos=1920x432
 	elif [ "$pos" = "--right-of" ]; then
-		pos=0x432
+		if [ `hostname` = "luthien" ]; then
+			pos=0x0
+			scale="--scale 0.7x0.7"
+		else
+			pos=0x432
+		fi
 	else
 		pos=0x0
 	fi
-	randr --output LVDS-1 --pos $pos
+	randr --output $BUILTIN --pos $pos $scale
     fi
 fi
 
