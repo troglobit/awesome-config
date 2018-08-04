@@ -15,9 +15,11 @@ You may benefit from installing the following external tools:
 
 - xrandr
 - xautolock
+- xcompmgr
 - xscreensaver
 - [xplugd][]
 - [light][]
+- nm-applet
 - blueman
 - pasystray
 - scrot
