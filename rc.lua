@@ -743,9 +743,9 @@ function run_once(prg, args, pname, screen)
    end
 
    if not args then
-      awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. ")",screen)
+      awful.util.spawn_with_shell("pgrep -u $USER -x '" .. pname .. "' || (" .. prg .. ")", screen)
    else
-      awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. " " .. args .. ")",screen)
+      awful.util.spawn_with_shell("pgrep -u $USER -x '" .. pname .. "' || (" .. prg .. " " .. args .. ")", screen)
    end
 end
 
@@ -755,7 +755,7 @@ run_once("/usr/lib/gnome-settings-daemon/gsd-xsettings")
 run_once("gnome-keyring-daemon")
 
 -- Neat dock/undock daemon
-run_once("xplugd " .. plug)
+run_once("xplugd", plug)
 
 -- Bluetooth applet
 run_once("blueman-applet")
@@ -768,7 +768,7 @@ run_once("pasystray")
 
 -- X compositing manager
 if hostname ~= 'carbon' then
-   run_once("xcompmgr -s -t-5 -l-5 -r4.2 -o.55 &")
+   run_once("xcompmgr", "-s -t-5 -l-5 -r4.2 -o.55 &")
 end
 
 -- Set up terminal resources and key bindings/overrides
