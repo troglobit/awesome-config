@@ -36,7 +36,9 @@ randr()
 
     log "CMD: $XRANDR $*"
     output=`$XRANDR $*`
-    log $output
+    if [ -n "$output" ]; then
+	log $output
+    fi
 }
 
 display()
@@ -69,12 +71,19 @@ placement()
 	    p="--same-as"
 	fi
     fi
-    log "Placement $p"
     echo $p
 }
 
+log "Plug event: $TYPE $DEVICE => $STATUS :: $DESC"
+
 if [ `hostname` = "luthien" ]; then
     BUILTIN=eDP-1
+    adjust="0x0"
+    scale="--scale 0.7x0.7"
+    scale=""
+else
+    adjust="0x432"
+    scale=""
 fi
 
 if [ "$TYPE" != "display" ]; then
@@ -92,106 +101,20 @@ if [ "$TYPE" != "display" ]; then
 else
     if [ "$STATUS" = "disconnected" ]; then
 	randr --output $DEVICE --off
-	randr --output $BUILTIN --scale 1x1
+	randr --output $BUILTIN $scale
     else
 	if [ "$DEVICE" = "LVDS-1" -o "$DEVICE" = "eDP-1" ]; then
 	    log "NOP $DEVICE already connected"
 	    exit 0
 	fi
 	pos=`placement`
-	scale=""
 	randr --output $DEVICE --primary $pos $BUILTIN --auto
 	if [ "$pos" = "--left-of" ]; then
-		pos=1920x432
-	elif [ "$pos" = "--right-of" ]; then
-		if [ `hostname` = "luthien" ]; then
-			pos=0x0
-			scale="--scale 0.7x0.7"
-		else
-			pos=0x432
-		fi
-	else
-		pos=0x0
+		adjust=1920x432
 	fi
-	randr --output $BUILTIN --pos $pos $scale
+	randr --output $BUILTIN --pos $adjust $scale
     fi
 fi
 
 exit 0
 
-############################### SCRATCH BELOW ###############################
-if [ "$STATUS" = "disconnected" ]; then
-#    log "Disconnect message for $DEVICE ..."
-    if [ -f $CACHE ]; then
-	CACHED=`cat $CACHE`
-	if [ "$CACHED" = "$DEVICE" ]; then
-	    log "Undocked $DEVICE, restoring laptop screen as default."
-	    randr --output $DEVICE --off
-	    rm $CACHE
-	fi
-    fi
-    exit 0
-fi
-
-# Home: Eizo S2401W
-# Work: DELL U2412M
-DISPLAY=""
-for file in /sys/class/drm/*/edid; do
-    if   [ -n "`strings $file | grep S2401W`" ]; then
-	DISPLAY="EIZO"
-	break
-    elif [ -n "`strings $file | grep U2412M`" ]; then
-	DISPLAY="DELL"
-	break
-    fi
-done
-
-if [ `hostname` = "carbon" ]; then
-    #LAPTOP=LVDS-1
-    LAPTOP=LVDS-1
-    DOCK=DVI-I-1-1
-    ALT=HDMI-1
-    DESKPOS=--right-of
-    PRESPOS=--left-of
-else
-    LAPTOP=LVDS-1
-    ALT=DP-1
-    if [ "$DISPLAY" = "EIZO" ]; then
-	DOCK=HDMI-3
-	DESKPOS=--left-of
-    else
-	DOCK=HDMI-3
-	DESKPOS=--right-of
-    fi
-    PRESPOS=--right-of
-fi
-
-log "DISPLAY : $DISPLAY"
-log "LAPTOP  : $LAPTOP"
-log "DOCK    : $DOCK"
-log "ALT     : $ALT"
-log "DESKPOS : $DESKPOS"
-log "PRESPOS : $PRESPOS"
-
-if [ "$DEVICE" = "${DOCK}" ]; then
-    log "Docked $DEVICE ${DESKPOS} ${LAPTOP}"
-    randr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP}
-    echo "$DEVICE" >$CACHE
-elif [ "$DEVICE" = "${ALT}" ]; then
-    log "Alt $DEVICE, presentation mode"
-    if [ `hostname` = "carbon" ]; then
-	randr --output ${LAPTOP} --auto --primary ${PRESPOS} ${DEVICE} --auto
-    else
-	randr --output ${DEVICE} --auto --primary ${DESKPOS} ${LAPTOP} --auto
-    fi
-    echo "$DEVICE" >$CACHE
-elif [ "$DEVICE" != "${LAPTOP}" ]; then
-    log "Standalone $DEVICE setup"
-    randr --output ${DEVICE} --auto ${PRESPOS} ${LAPTOP} --primary
-    echo "$DEVICE" >$CACHE
-else
-    log "Fallback $DEVICE."
-    randr --auto
-fi
-
-exit 0
