@@ -1,3 +1,6 @@
 [submodule "awesome-switcher"]
 	path = awesome-switcher
 	url = ../awesome-switcher.git
+[submodule "redshift"]
+	path = redshift
+	url = ../awesome-redshift.git

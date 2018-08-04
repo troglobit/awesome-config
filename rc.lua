@@ -32,6 +32,9 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 -- Load screen manip. library
 local randr = require("randr")
 
+-- Load redshift (night mode) library
+local redshift = require("redshift")
+
 -- Load sound manip. library
 local sound = require("sound")
 
@@ -88,6 +91,9 @@ emacs_cmd = "emacs --no-splash"
 
 -- Initialize screen(s)
 randr.init(plug)
+
+-- Start night mode
+redshift.init(1)
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -584,6 +590,14 @@ globalkeys = gears.table.join(globalkeys,
 	awful.key({}, "Pause",                function () awful.util.spawn("xautolock -locknow") end),
 	awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("xautolock -locknow") end),
 	awful.key({}, "XF86ScreenSaver",      function () awful.util.spawn("xautolock -locknow") end)
+)
+root.keys(globalkeys)
+
+-- Toggle redshift (night mode)
+globalkeys = gears.table.join(globalkeys,
+        awful.key({ modkey }, "Pause",      function () redshift.toggle() end),
+        awful.key({ modkey }, "d",          function () redshift.dim() end),
+        awful.key({ modkey, "Shift" }, "d", function () redshift.undim() end)
 )
 root.keys(globalkeys)
 
