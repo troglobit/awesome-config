@@ -81,7 +81,7 @@ if [ "$TYPE" != "display" ]; then
 #    log "Peripheral $TYPE $STATUS: $DESC"
     case "$TYPE,$STATUS,$DESC" in
         pointer,connected,"SynPS/2 Synaptics TouchPad")
-            xinput disable  $DEVICE
+#            xinput disable  $DEVICE
             xinput set-prop $DEVICE "libinput Tapping Enabled" 1
 	    xinput set-prop $DEVICE "libinput Natural Scrolling Enabled" 1
             ;;
