@@ -35,6 +35,9 @@ local randr = require("randr")
 -- Load redshift (night mode) library
 local redshift = require("redshift")
 
+-- Load screen/kbd brightness library
+local light = require("light")
+
 -- Load sound manip. library
 local sound = require("sound")
 
@@ -94,6 +97,9 @@ randr.init(plug)
 
 -- Start night mode
 redshift.init(1)
+
+-- Set up screen/kbd brightness
+light.init()
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -580,8 +586,8 @@ root.keys(globalkeys)
 
 -- Brightness
 globalkeys = gears.table.join(globalkeys,
-	awful.key({}, "XF86MonBrightnessUp",   function () awful.util.spawn("light -A 10") end),
-	awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn("light -U 10") end)
+	awful.key({}, "XF86MonBrightnessUp",   function () light.dpy_inc() end),
+	awful.key({}, "XF86MonBrightnessDown", function () light.dpy_dec() end)
 )
 root.keys(globalkeys)
 

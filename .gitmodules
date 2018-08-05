@@ -4,3 +4,6 @@
 [submodule "redshift"]
 	path = redshift
 	url = ../awesome-redshift.git
+[submodule "light"]
+	path = light
+	url = ../awesome-light.git
