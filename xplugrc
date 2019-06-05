@@ -69,20 +69,21 @@ placement()
 	    p="--right-of"
 	else
 	    p="--same-as"
+	    p="--right-of"
 	fi
     fi
     echo $p
 }
 
 log "Plug event: $TYPE $DEVICE => $STATUS :: $DESC"
-
 if [ `hostname` = "luthien" ]; then
     BUILTIN=eDP-1
     adjust="0x0"
     scale="--scale 0.7x0.7"
     scale=""
 else
-    adjust="0x432"
+    # adjust="0x432"
+    adjust=""
     scale=""
 fi
 
@@ -109,9 +110,9 @@ else
 	fi
 	pos=`placement`
 	randr --output $DEVICE --primary $pos $BUILTIN --auto
-	if [ "$pos" = "--left-of" ]; then
-		adjust=1920x432
-	fi
+	# if [ "$pos" = "--left-of" ]; then
+	# 	adjust=1920x432
+	# fi
 	randr --output $BUILTIN --pos $adjust $scale
     fi
 fi

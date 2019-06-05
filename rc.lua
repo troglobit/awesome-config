@@ -73,7 +73,8 @@ end
 hostname = io.lines("/proc/sys/kernel/hostname")()
 
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "zenburn/theme.lua")
+-- zenburn, sky, default
+beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 if hostname == 'carbon' then
@@ -809,5 +810,5 @@ run_once("xautolock -detectsleep -time 15 -locker 'xscreensaver-command -lock'")
 -- }}}
 
 -- Set background image, if available
---awful.util.spawn_with_shell("~/.fehbg")
+awful.util.spawn_with_shell("~/.fehbg")
 
