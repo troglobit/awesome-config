@@ -80,7 +80,6 @@ if [ `hostname` = "luthien" ]; then
     BUILTIN=eDP-1
     adjust="0x0"
     scale="--scale 0.7x0.7"
-    scale=""
 else
     # adjust="0x432"
     adjust=""
