@@ -780,7 +780,7 @@ run_once("gnome-keyring-daemon")
 run_once("xplugd", plug)
 
 -- Bluetooth applet
-run_once("blueman-applet")
+--run_once("blueman-applet")
 
 -- Network status in tray
 run_once("nm-applet")
