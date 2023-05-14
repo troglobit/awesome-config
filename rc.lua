@@ -85,6 +85,7 @@ else
 end
 browser  = "firefox"
 email    = "evolution"
+gtheme   = "Adwaita-dark"
 plug     = os.getenv("HOME") .. "/.config/awesome/xplugrc"
 dialog   = os.getenv("HOME") .. "/.config/awesome/ctrl-alt-del.py"
 editor   = os.getenv("EDITOR") or "editor"
@@ -812,3 +813,7 @@ run_once("xautolock -detectsleep -time 15 -locker 'xscreensaver-command -lock'")
 -- Set background image, if available
 awful.util.spawn_with_shell("~/.fehbg")
 
+-- Set Gnome theme
+os.execute("gsettings set org.gnome.desktop.interface gtk-theme " gtheme)
+os.execute("gsettings set org.gnome.desktop.wm.preferences theme  " gtheme)
+os.execute("gsettings set org.gnome.desktop.interface icon-theme " gtheme)
