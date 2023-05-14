@@ -814,6 +814,6 @@ run_once("xautolock -detectsleep -time 15 -locker 'xscreensaver-command -lock'")
 awful.util.spawn_with_shell("~/.fehbg")
 
 -- Set Gnome theme
-os.execute("gsettings set org.gnome.desktop.interface gtk-theme " gtheme)
-os.execute("gsettings set org.gnome.desktop.wm.preferences theme  " gtheme)
-os.execute("gsettings set org.gnome.desktop.interface icon-theme " gtheme)
+os.execute("gsettings set org.gnome.desktop.interface gtk-theme " .. gtheme)
+os.execute("gsettings set org.gnome.desktop.wm.preferences theme  " .. gtheme)
+os.execute("gsettings set org.gnome.desktop.interface icon-theme " .. gtheme)
